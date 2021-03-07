@@ -4,5 +4,5 @@
 "Prop | Type | Description
 --------------------------
 Enabled | Boolean | A boolean value tracking if the user has disabled (0) or enabled (1) the plugin.
-libFrameHTMLCache | HTML | A raw HTML property for caching the view frame.",
+libFrameHTMLCache | HTML | A raw HTML property for caching the view frame."
 }
