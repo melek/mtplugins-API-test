@@ -1,2 +1,2 @@
 # mtplugins-API-test
- A testing repository. 
+ A testing repository for a GitHub-centric approach to plugin management. 
