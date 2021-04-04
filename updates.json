@@ -1,7 +1,7 @@
 {
-  "Lib:CustomCounters": {"0.1":   {
+  "Lib:CustomCounters": {"1.0":   {
     "mtversion": "1.8.4",
-    "timestamp": "2021-04-04T15:28:21.6836639-07:00",
+    "timestamp": "2021-04-04T15:36:22.328379-07:00",
     "notes": "",
     "gmnotes": "Custom Counters v1.0\n\nThis library contains a drop-in macro called 'Custom Counters' that can be used from anywhere in a campaign to track any kind of simple resources, a lot like using glass counters during a tabletop game.\n\nTo get started, select the token you which to update with custom counters, and click on the macro button. You can add, increment/decrement, and edit counters from the list. You can additionally place the 'Show Counters' button in the Campaign, GM, or any Token macro panel to call the macro remotely.\n\n<u>Options<\/u>\nThere are a few options you can set by changing their definitions in the macro. If you aren't using the Custom Counters macro by reference, it is recommended to do this before copying the macro anywhere in your campaign.\n<b>vPropertyName<\/b>: This is the name of the Token Property the macro stores custom counter JSON data inside of. Change this if you already use 'CustomCounters' as a property name or want to use a different name. You can also add this as a defined token property to edit counters directly from the Edit Token dialog.\n<b>vCounterCategories<\/b>: This is a list of categories for counters. The default list was made to fit well for Dungeons and Dragons 5th Edition, but you can customize it for any game system.\n<b>vCounterTypeList<\/b>: This is a list of reset types. The 'Keys' repesent the option text in the Add/Edit counter dialog box, and the value is the actual counter type that is recorded on the token. The default counter type is an empty string/null value which creates a simple counter without a maximum value. All others create a maximum value.\n\n<u>Getting Fancy<\/u>\nYou can copy-past the 'Adjust Counter' macro to make your own special counte radjustment macros, or call it from another macro to increment the counters.\nYou can use Counter Types to reset or affect a counter based on a condition in another macro. For instance, you can have a 'Short Rest' macro that looks for any counters with 'Short Rest' as the counter type and then resets the value to maximum. You can see the 'Short Rest' and 'Long Rest' macros in my Simple 5e library for examples.\n\nTo change the counter values programmatically, you will need to write macros using JSON. The data format is very simple array of objects with up to 5 keys: 'name', 'category', 'value', and optionally 'max' and 'type'.\n\nThere are no property dependencies in these macros that aren't configurable, and the core macro in particular is extremely portable and will work from any macro panel. \n\nHave Fun!",
     "properties":     {
@@ -311,9 +311,9 @@
       }
     ]
   }},
-  "Lib:Overlay": {"0.1":   {
+  "Lib:Overlay": {"0.1-alpha2":   {
     "mtversion": "1.8.4",
-    "timestamp": "2021-04-04T15:28:21.7216604-07:00",
+    "timestamp": "2021-04-04T15:36:22.364381-07:00",
     "notes": "",
     "gmnotes": "",
     "properties":     {
@@ -698,9 +698,9 @@
       }
     ]
   }},
-  "Lib:SimpleDoors": {"0.1":   {
+  "Lib:SimpleDoors": {"0.2":   {
     "mtversion": "1.8.4",
-    "timestamp": "2021-04-04T15:28:21.7806613-07:00",
+    "timestamp": "2021-04-04T15:36:22.4223789-07:00",
     "notes": "SimpleDoors is a basic approach to doors in MapTool which let the GM quickly toggle the visible state of a cell edge or nearby drawing named 'Door' to block or grant players vision across a line. Users can click directly on the door icon, toggling its state with a handy visual icon. \n\n\nInstallation: \n- Place the Lib:SimpleDoors library on your staging or library map.\n- Copy the 'Create Door' macro to your Campaign or GM macros. \n\nCreating doors: \n- Disable the 'SimpleDoor' handler overlay in the Window -> Overlays menu.\n- Ensure the map you are on has a SQUARE grid type.\n- Create and place doors on edges you wish to behave as doors.\n   - Doors automaticall toggle a line of VBL on the edge they are on. \n   - Alternatively, you can draw custom doors:\n      - Draw a line (exactly 2 points) on any layer. The 'Hidden' layer is recommended. \n      - Right click your new line drawing in the Draw Explorer, click 'Set Name', and set the name to 'Door'.\n      - Center your Door icon within half a cell of the center of your 'Door' line.\n      - You can have as many 'Door' lines as you want on your map.\n\nUsing doors:\n- Enable the 'SimpleDoor Handler' overlay in the Window -> Overlays menu.\n- Simple click on doors. They must be on the 'Token' layer if you want players to be able to toggle them.\n- If the server lets players auto-reveal on movement, SimpleDoors will try to expose visible area when players open doors.\n\n\nNotes:\n- SimpleDoors do not include any movement blocking features, but can work with AI Pathfinding if you check the 'Treat VBL as MBL' option by the AI button in the interaction tools.",
     "gmnotes": "",
     "properties":     {
@@ -1268,7 +1268,7 @@
   }},
   "Lib:Rat": {"0.1":   {
     "mtversion": "1.8.4",
-    "timestamp": "2021-04-04T15:28:21.8066637-07:00",
+    "timestamp": "2021-04-04T15:36:22.4483793-07:00",
     "notes": "MapTool Library Revision Automation Toolkit (Lib:Rat)",
     "gmnotes": "",
     "properties":     {
@@ -1532,15 +1532,15 @@
         "fontSize": "1.00em",
         "minWidth": "",
         "playerEditable": false,
-        "command": "[h: vPercent = arg(0)]\n[h: vTaskName = arg(1)]\n[h, if(argCount() > 2): vTaskNote = arg(2); vTaskNote = \"\"]\n\n[h: vSteps = 20]\n[h: vStep  = 100 / vSteps]\n[h: vProgressBar = \"\"]\n[h, count(vSteps): vProgressBar = vProgressBar \n\t+ if(roll.count * vStep <= vPercent * 100, \"*\", \".\")]\n\n[h, if(vPercent < vStep / 100): \n\tvPercentSign = \"  % \";\n\tvPercentSign = if(vPercent == 1, \"% \", \" % \")]\n\n[h: broadcast(vTaskName \n\t\t\t+ \": <code>[\" + vProgressBar + \"] \" \n\t\t\t+ floor(vPercent * 100) + vPercentSign + \"<\/code>\"\n\t\t\t+ vTaskNote\n\t\t\t, \"gm\")]",
+        "command": "[h: vPercent = arg(0)]\n[h: vTaskName = arg(1)]\n[h, if(argCount() > 2): vTaskNote = arg(2); vTaskNote = \"\"]\n\n[h: vSteps = 20]\n[h: vStep  = 100 / vSteps]\n[h: vProgressBar = \"\"]\n[h, count(vSteps): vProgressBar = vProgressBar \n\t+ if(roll.count * vStep <= vPercent * 100, \"*\", \".\")]\n\n[h, if(vPercent < vStep / 100): \n\tvPercentSign = \"  % \";\n\tvPercentSign = if(vPercent == 1, \"% \", \" % \")]\n\n[h: vProgressMsg = \n      vTaskName \n\t+ \": <code>[\" + vProgressBar + \"] \" \n\t+ floor(vPercent * 100) + vPercentSign + \"<\/code>\"\n\t+ vTaskNote]\n\t\n[h: log.info(vProgressMsg)]\n[h: broadcast(vProgressMsg, \"gm\")]",
         "maxWidth": "",
         "tooltip": "showChatProgress(percent, taskName [, taskNote]) broadcasts a progress bar in chat to GMs.",
         "applyToSelected": false,
         "compare": [],
         "metadata":         {
           "uuid": "3a0ae8e3-fa22-47b9-8b38-226398871724",
-          "commandChecksum": "f4e35f8705bbe0f13793ed149f845a24",
-          "propsChecksum": "77a9c611852008bcc8391dced42cda88"
+          "commandChecksum": "5bcfc4f679f82e3bd2acadb5abcd83d1",
+          "propsChecksum": "62218934c643ace2ab406fb3837c18a0"
         }
       },
             {
@@ -1654,22 +1654,22 @@
         "fontSize": "1.00em",
         "minWidth": "",
         "playerEditable": false,
-        "command": "[h: vLibsJSON = \"{}\"]\n[h: vLibs     = librat.getLibs()]\n[h: vLibTotal = json.length(vLibs)]\n[h: vLibNum   = 0]\n[h, foreach(vLib, vLibs), code: {\n\t[librat.showChatProgress(vLibNum / vLibTotal, \"Compiling Library JSON for Export\", getName(vLib))]\n\t[vPropsJSON = \"{}\"]\n\t[foreach(vProp, getPropertyNamesRaw(\"json\", vLib), \"\"): \n\t\tvPropsJSON = json.set(vPropsJSON, vProp, getRawProperty(vProp, vLib))]\n\n\t[vMacrosJSON = \"\"]\n\t[foreach(vLabel, getMacros(\"json\", vLib), \"\"), code: {\n\t    [foreach(vIndex, getMacroIndexes(vLabel, \"json\", vLib), \"\"):\n\t\t  \tvMacrosJSON = json.append(vMacrosJSON, getMacroProps(vIndex, \"json\", vLib))]\n\t\t}]\n\t\n\t[vLibVersion = getLibProperty(\"libVersion\")]\n\t[if(vLibversion == \"\"):\n\t\tvLibVersion = vTimeVersion]\n\t[vLibsJSON = json.set(vLibsJSON, getName(vLib), json.set(\"{}\", \n\t\tvLibVersion,\tjson.set(\"{}\",\n\t\t\t\"mtversion\" , json.get(getInfo(\"client\"), \"version\"),\n\t\t\t\"timestamp\" , json.get(getInfo(\"Client\"), \"isoTimeDate\"),\n\t\t\t\"notes\"\t\t, getNotes(vLib),\n\t\t\t\"gmnotes\"\t, getGMNotes(vLib),\n\t\t\t\"properties\", vPropsJSON,\n\t\t\t\"macros\"\t, vMacrosJSON)))]\n    [vLibNum = vLibNum + 1]\n}]\n[h: librat.showChatProgress(vLibNum / vLibTotal, \"Compiling Library JSON for Export\", \"Done!\")]\n\n[frame5(\"JSON Output\", \"width=640;height=480;temporary=1;\"): {\n<html>\n<body style=\"margin:0;padding:0;\">\n<textarea style=\"height:100%; width:100%; overflow: auto;\" readonly>\n[r: json.indent(vLibsJSON, 2)]\n<\/textarea>\n<\/body>\n<\/html>\n}]\n",
+        "command": "[h: vLibsJSON = \"{}\"]\n[h: vLibs     = librat.getLibs()]\n[h: vLibTotal = json.length(vLibs)]\n[h: vLibNum   = 0]\n[h, foreach(vLib, vLibs), code: {\n\t[librat.showChatProgress(vLibNum / vLibTotal, \"Compiling Library JSON for Export\", getName(vLib))]\n\t[vPropsJSON = \"{}\"]\n\t[foreach(vProp, getPropertyNamesRaw(\"json\", vLib), \"\"): \n\t\tvPropsJSON = json.set(vPropsJSON, vProp, getRawProperty(vProp, vLib))]\n\n\t[vMacrosJSON = \"\"]\n\t[foreach(vLabel, getMacros(\"json\", vLib), \"\"), code: {\n\t    [foreach(vIndex, getMacroIndexes(vLabel, \"json\", vLib), \"\"):\n\t\t  \tvMacrosJSON = json.append(vMacrosJSON, getMacroProps(vIndex, \"json\", vLib))]\n\t\t}]\n\t\n\t[vLibVersion = getLibProperty(\"libVersion\", vLib)]\n\t[vISOTimeDate = json.get(getInfo(\"Client\"), \"isoTimeDate\")]\n\t[if(vLibversion == \"\"):\n\t\tvLibVersion = \"Unknown.\" + vISOTimeDate]\n\t[vLibsJSON = json.set(vLibsJSON, getName(vLib), json.set(\"{}\", \n\t\tvLibVersion,\tjson.set(\"{}\",\n\t\t\t\"mtversion\" , json.get(getInfo(\"client\"), \"version\"),\n\t\t\t\"timestamp\" , vISOTimeDate,\n\t\t\t\"notes\"\t\t, getNotes(vLib),\n\t\t\t\"gmnotes\"\t, getGMNotes(vLib),\n\t\t\t\"properties\", vPropsJSON,\n\t\t\t\"macros\"\t, vMacrosJSON)))]\n    [vLibNum = vLibNum + 1]\n}]\n[h: librat.showChatProgress(vLibNum / vLibTotal, \"Compiling Library JSON for Export\", \"Done!\")]\n\n[frame5(\"JSON Output\", \"width=640;height=480;temporary=1;\"): {\n<html>\n<body style=\"margin:0;padding:0;\">\n<textarea style=\"height:100%; width:100%; overflow: auto;\" readonly>\n[r: json.indent(vLibsJSON, 2)]\n<\/textarea>\n<\/body>\n<\/html>\n}]\n",
         "maxWidth": "",
         "tooltip": "Displays Name/GM Name/Label, Notes, Properties, and Macros to a single JSON.",
         "applyToSelected": false,
         "compare": [],
         "metadata":         {
           "uuid": "68c7d919-b8ea-4e1e-a57d-b151389afe77",
-          "commandChecksum": "fc7685ae73becdf8649aa82edb1ee7e0",
-          "propsChecksum": "0853dde24be2510e5a9f0823515799b8"
+          "commandChecksum": "5e6abbbba2b6e8929d5140a0f666e13e",
+          "propsChecksum": "ba208b1fe0f45ecee751e5fb7fac1dd5"
         }
       }
     ]
   }},
-  "Lib:EventMacros": {"0.1":   {
+  "Lib:EventMacros": {"47e":   {
     "mtversion": "1.8.4",
-    "timestamp": "2021-04-04T15:28:22.1976617-07:00",
+    "timestamp": "2021-04-04T15:36:22.8453799-07:00",
     "notes": "",
     "gmnotes": "",
     "properties":     {
@@ -8276,9 +8276,9 @@
       }
     ]
   }},
-  "Lib:AutoOCL": {"0.1":   {
+  "Lib:AutoOCL": {"Unknown.2021-04-04T15:36:22.8693778-07:00":   {
     "mtversion": "1.8.4",
-    "timestamp": "2021-04-04T15:28:22.2216595-07:00",
+    "timestamp": "2021-04-04T15:36:22.8693778-07:00",
     "notes": "Proof of concept to automatically run OCL.",
     "gmnotes": "",
     "properties":     {
@@ -8388,9 +8388,9 @@
       }
     ]
   }},
-  "lib:OnTokenMove": {"0.1":   {
+  "lib:OnTokenMove": {"48":   {
     "mtversion": "1.8.4",
-    "timestamp": "2021-04-04T15:28:31.6116659-07:00",
+    "timestamp": "2021-04-04T15:36:31.7683877-07:00",
     "notes": "\n\n",
     "gmnotes": "Click \"onCampaignLoad\" to activate automatic stair and doors transitions! \n(Teleports, InterTeleports and the one way teleports)\nThe onCampaignLoad button can be found on the 'selection panel'\n\nWhen the animation of the doors stop working and start to create all kinds of duplicates, then the autoexec on the other clients doesn't work anymore. This usually happens when the ownership of this tokens has been assigned to someone not online. Make sure NO OWNERS ARE SET FOR THIS LIB:TOKEN",
     "properties":     {
@@ -23638,9 +23638,9 @@
       }
     ]
   }},
-  "Lib:CleanProperties": {"0.1":   {
+  "Lib:CleanProperties": {"Unknown.2021-04-04T15:36:32.1483801-07:00":   {
     "mtversion": "1.8.4",
-    "timestamp": "2021-04-04T15:28:31.9656634-07:00",
+    "timestamp": "2021-04-04T15:36:32.1483801-07:00",
     "notes": "",
     "gmnotes": "",
     "properties": {},
